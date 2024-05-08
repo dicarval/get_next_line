@@ -6,11 +6,51 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:59:54 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/07 20:39:58 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:43:24 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	free_content(t_list **lnklist)
+{
+	t_list	*current;
+	t_list	*tmp;
+
+	if (!lnklist)
+		return ;
+	current = *lnklist;
+	while (current != NULL)
+	{
+		tmp = current;
+		current = current->next;
+		free(tmp->buf);
+		free(tmp);
+	}
+	*lnklist = NULL;
+}
+
+size_t	list_len(t_list *lnklist)
+{
+	size_t	line_len;
+	int i;
+
+	i = 0;
+	line_len = 0;
+	if (lnklist->buf)
+		return (0);
+	while (lnklist->buf[i] != '\0')
+	{
+		while (lnklist->buf[i] != '\n' || lnklist->buf[i] != '\0')
+			line_len++;
+		if ((lnklist->buf[i] == '\n'))
+			line_len++;
+			return (line_len);
+		if (lnklist->next)
+			lnklist = lnklist->next;
+	}
+	return (line_len);
+}
 
 int	end_line(t_list *list)
 {

@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:09:13 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/07 20:39:58 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:43:24 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ typedef struct	s_list
 
 char	*get_next_line(int fd);
 void	create_line(t_list **lnklist, int fd);
+char	*cpy_line(t_list *lnklist);
+t_list	*prep_next_line(t_list **lnklist);
 int		end_line(t_list *list);
 void	lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
+size_t	list_len(t_list *lnklist);
+void	free_content(t_list **lnklist);
 #endif
