@@ -6,34 +6,37 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/08 15:08:52 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:09:34 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*prep_next_line(t_list **lnklist)
+void	prep_next_line(t_list **lnklist)
 {
 	t_list	*last;
 	t_list	*char_n_used;
 	int		i;
+	int		k;
 
 	if (lnklist == NULL)
 		return ;
-	last = ft_lstlast(lnklist);
-	while (last->buf[i] != '\n' || last->buf[i] != '\0')
+	char_n_used = malloc(sizeof(t_list));
+	char_n_used->buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	char_n_used->next = NULL;
+	if (char_n_used->buf == NULL || char_n_used == NULL)
+		return ;
+	i = 0;
+	k = 0;
+	last = ft_lstlast(*lnklist);
+	while (last->buf[i] != '\n' && last->buf[i] != '\0')
 		i++;
 	if (last->buf[i] == '\n')
 		i++;
-	if (last->buf[i] == '\0')
-		return ;
-	char_n_used = malloc(sizeof(t_list));
-	char_n_used->buf = malloc(sizeof(char) * (BUFFER_SIZE - i) + 1);
-	char_n_used->next = NULL;
-	if (char_n_used == NULL)
-		return ;
-	free_content(&lnklist);
-	return (char_n_used);
+	while (last->buf[i] != '\0')
+		char_n_used->buf[k++] = last->buf[i++];
+	char_n_used->buf[k] = '\0';
+	free_content(lnklist, char_n_used);
 }
 
 char	*cpy_line(t_list *lnklist)
@@ -45,41 +48,45 @@ char	*cpy_line(t_list *lnklist)
 
 	if (lnklist == NULL)
 		return (NULL);
-	j = 0;
 	line_len = list_len(lnklist);
 	new_line = malloc(sizeof(char) * line_len + 1);
-	if (new_line || line_len == 0)
+	if (new_line == NULL)
 		return (NULL);
-	while (lnklist->buf)
+	j = 0;
+	while (lnklist != NULL)
 	{
 		i = 0;
-		while (lnklist->buf[i] != '\0' || lnklist->buf[i] != '\n')
+		while (lnklist->buf[i] != '\0' && lnklist->buf[i] != '\n')
 			new_line[j++] = lnklist->buf[i++];
-		if ((lnklist->buf[i] == '\n'))
+		if (lnklist->buf[i] == '\n')
 			new_line[j] = lnklist->buf[i];
-		if (lnklist->next)
-			lnklist = lnklist->next;
+		lnklist = lnklist->next;
 	}
 	new_line[++j] = '\0';
 	return (new_line);
 }
 
-void	create_line(t_list **lnklist, int fd)
+void	create_list(t_list **lnklist, int fd)
 {
 	int		i;
-	char	*buffer;
+	t_list	*node;
 
 	while (end_line(*lnklist) == 0)
 	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (buffer == NULL)
+		node = malloc(sizeof(t_list));
+		node->buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		node->next = NULL;
+		if (node == NULL || node->buf == NULL)
 			return ;
-		i = read(fd, buffer, BUFFER_SIZE);
+		i = read(fd, node->buf, BUFFER_SIZE);
 		if (i == 0)
-			free (buffer);
+		{
+			free(node->buf);
+			free(node);
 			return ;
-		lnklist[i] = '\0';
-		lstadd_back(lnklist, buffer);
+		}
+		node->buf[i] = '\0';
+		lstadd_back(lnklist, node);
 	}
 }
 
@@ -90,10 +97,24 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	create_line(&lnklist, fd);
+	create_list(&lnklist, fd);
+	if (lnklist == NULL)
+		return (NULL);
 	line = cpy_line(lnklist);
 	if (line == NULL)
 		return (NULL);
 	prep_next_line (&lnklist);
 	return (line);
+}
+int	main()
+{
+	int		fd;
+	char	*line;
+	int		lines;
+
+	lines = 1;
+	fd = open("test.txt", O_RDONLY);
+
+	while ((line = get_next_line(fd)))
+		printf("%d\n", printf("%d->%s", lines++, line));
 }
