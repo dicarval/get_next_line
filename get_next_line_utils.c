@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:59:54 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/09 18:05:55 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:32:35 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 void	free_content(t_list **lnklist, t_list *char_n_used)
 {
 	t_list	*tmp;
+	t_list	*current;
 
 	if (*lnklist == NULL)
 		return ;
-	while (*lnklist != NULL)
+	current = *lnklist;
+	while (current != NULL)
 	{
-		tmp = (*lnklist)->next;
-		free((*lnklist)->buf);
-		free(*lnklist);
-		*lnklist = tmp;
+		tmp = current;
+		current = current->next;
+		free(tmp->buf);
+		free(tmp);
 	}
 	*lnklist = NULL;
 	if (char_n_used->buf[0])
@@ -32,7 +34,6 @@ void	free_content(t_list **lnklist, t_list *char_n_used)
 	{
 		free(char_n_used->buf);
 		free(char_n_used);
-		char_n_used = NULL;
 	}
 }
 
@@ -41,22 +42,18 @@ size_t	list_len(t_list *lnklist)
 	size_t	line_len;
 	int		i;
 
-	i = 0;
 	line_len = 0;
 	if (lnklist == NULL)
 		return (0);
 	while (lnklist != NULL)
 	{
 		i = 0;
-		while (lnklist->buf[i] != '\n' && lnklist->buf[i] != '\0')
+		while (lnklist->buf[i] != '\0')
 		{
+			if (lnklist->buf[i] == '\n')
+				return (++line_len);
 			i++;
 			line_len++;
-		}
-		if (lnklist->buf[i] == '\n')
-		{
-			line_len++;
-			return (line_len);
 		}
 		lnklist = lnklist->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/09 18:09:34 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:32:38 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*cpy_line(t_list *lnklist)
 	size_t	line_len;
 
 	if (lnklist == NULL)
-		return (NULL);
+	return (NULL);
 	line_len = list_len(lnklist);
 	new_line = malloc(sizeof(char) * line_len + 1);
 	if (new_line == NULL)
@@ -59,10 +59,10 @@ char	*cpy_line(t_list *lnklist)
 		while (lnklist->buf[i] != '\0' && lnklist->buf[i] != '\n')
 			new_line[j++] = lnklist->buf[i++];
 		if (lnklist->buf[i] == '\n')
-			new_line[j] = lnklist->buf[i];
+			new_line[j++] = lnklist->buf[i];
 		lnklist = lnklist->next;
 	}
-	new_line[++j] = '\0';
+	new_line[j] = '\0';
 	return (new_line);
 }
 
@@ -74,7 +74,7 @@ void	create_list(t_list **lnklist, int fd)
 	while (end_line(*lnklist) == 0)
 	{
 		node = malloc(sizeof(t_list));
-		node->buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		node->buf = malloc(BUFFER_SIZE + 1);
 		node->next = NULL;
 		if (node == NULL || node->buf == NULL)
 			return ;
@@ -116,5 +116,8 @@ int	main()
 	fd = open("test.txt", O_RDONLY);
 
 	while ((line = get_next_line(fd)))
-		printf("%d\n", printf("%d->%s", lines++, line));
+	{
+		printf("%d->%s", lines++, line);
+		free(line);
+	}
 }
