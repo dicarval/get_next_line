@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/22 17:32:38 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:19:44 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	prep_next_line(t_list **lnklist)
 	char_n_used = malloc(sizeof(t_list));
 	char_n_used->buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	char_n_used->next = NULL;
-	if (char_n_used->buf == NULL || char_n_used == NULL)
+	if (char_n_used->buf == NULL)
 		return ;
 	i = 0;
 	k = 0;
-	last = ft_lstlast(*lnklist);
+	last = lstlast(*lnklist);
 	while (last->buf[i] != '\n' && last->buf[i] != '\0')
 		i++;
 	if (last->buf[i] == '\n')
@@ -76,7 +76,7 @@ void	create_list(t_list **lnklist, int fd)
 		node = malloc(sizeof(t_list));
 		node->buf = malloc(BUFFER_SIZE + 1);
 		node->next = NULL;
-		if (node == NULL || node->buf == NULL)
+		if (node->buf == NULL)
 			return ;
 		i = read(fd, node->buf, BUFFER_SIZE);
 		if (i == 0)
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	prep_next_line (&lnklist);
 	return (line);
 }
-int	main()
+/* int	main()
 {
 	int		fd;
 	char	*line;
@@ -120,4 +120,4 @@ int	main()
 		printf("%d->%s", lines++, line);
 		free(line);
 	}
-}
+} */

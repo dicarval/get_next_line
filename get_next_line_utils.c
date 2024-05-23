@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:59:54 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/22 15:32:35 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:19:06 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ size_t	list_len(t_list *lnklist)
 		while (lnklist->buf[i] != '\0')
 		{
 			if (lnklist->buf[i] == '\n')
+			{
 				return (++line_len);
+			}
 			i++;
 			line_len++;
 		}
@@ -71,15 +73,15 @@ int	end_line(t_list *list)
 		i = 0;
 		while (list->buf[i] != '\0')
 		{
-			i++;
 			if (list->buf[i] == '\n')
 				return (1);
+			i++;
 		}
 		list = list->next;
 	}
 	return (0);
 }
-t_list	*ft_lstlast(t_list *lst)
+t_list	*lstlast(t_list *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -98,7 +100,7 @@ void	lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 	else
 	{
-		last = ft_lstlast(*lst);
+		last = lstlast(*lst);
 		last->next = new;
 	}
 }

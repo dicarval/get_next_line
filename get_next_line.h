@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:09:13 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/09 17:12:54 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:19:06 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*cpy_line(t_list *lnklist);
 void	prep_next_line(t_list **lnklist);
 int		end_line(t_list *list);
 void	lstadd_back(t_list **lst, t_list *new);
-t_list	*ft_lstlast(t_list *lst);
+t_list	*lstlast(t_list *lst);
 size_t	list_len(t_list *lnklist);
 void	free_content(t_list **lnklist, t_list *char_n_used);
 #endif
