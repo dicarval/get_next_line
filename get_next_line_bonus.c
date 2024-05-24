@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/24 11:39:36 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:31:23 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	prep_next_line(t_list **lnklist)
 {
@@ -71,7 +71,7 @@ void	create_list(t_list **lnklist, int fd)
 	int		i;
 	t_list	*node;
 
-	while (end_line(*lnklist) == 0)
+	while (end_line(lnklist[fd]) == 0)
 	{
 		node = malloc(sizeof(t_list));
 		node->buf = malloc(BUFFER_SIZE + 1);
@@ -86,40 +86,58 @@ void	create_list(t_list **lnklist, int fd)
 			return ;
 		}
 		node->buf[i] = '\0';
-		lstadd_back(lnklist, node);
+		lstadd_back(lnklist, node, fd);
 	}
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*lnklist = NULL;
+	static t_list	*lnklist[FOPEN_MAX];
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	create_list(&lnklist, fd);
-	if (lnklist == NULL)
+	create_list(lnklist, fd);
+	if (lnklist[fd] == NULL)
 		return (NULL);
-	line = cpy_line(lnklist);
+	line = cpy_line(lnklist[fd]);
 	if (line == NULL)
 		return (NULL);
-	prep_next_line (&lnklist);
+	prep_next_line (&lnklist[fd]);
 	return (line);
 }
-/* #include <stdio.h>
-
-int	main()
+/* int main()
 {
-	int		fd;
-	char	*line;
-	int		lines;
+	int		fd1, fd2, fd3, fd4;
 
-	lines = 1;
-	fd = open("test.txt", O_RDONLY);
-
-	while ((line = get_next_line(fd)))
-	{
-		printf("%d->%s", lines++, line);
-		free(line);
-	}
-} */
+	fd1 = open("test1.txt", O_RDONLY);
+	fd2 = open("test2.txt", O_RDONLY);
+	fd3 = open("test3.txt", O_RDONLY);
+	fd4 = open("test4.txt", O_RDONLY);
+	printf("line *%s", get_next_line(fd1));
+	printf("line *%s", get_next_line(fd2));
+	printf("line *%s", get_next_line(fd3));
+	printf("line *%s", get_next_line(fd4));
+	printf("line *%s", get_next_line(fd1));
+	printf("line *%s", get_next_line(fd2));
+	printf("line *%s", get_next_line(fd3));
+	printf("line *%s", get_next_line(fd4));
+	printf("line *%s", get_next_line(fd1));
+	printf("line *%s", get_next_line(fd2));
+	printf("line *%s", get_next_line(fd3));
+	printf("line *%s", get_next_line(fd4));
+	printf("line *%s", get_next_line(fd1));
+	printf("line *%s", get_next_line(fd2));
+	printf("line *%s", get_next_line(fd3));
+	printf("line *%s", get_next_line(fd4));
+	printf("line *%s", get_next_line(fd1));
+	printf("line *%s", get_next_line(fd2));
+	printf("line *%s", get_next_line(fd3));
+	printf("line *%s", get_next_line(fd4));
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	close(fd4);
+	return (0);
+}
+ */

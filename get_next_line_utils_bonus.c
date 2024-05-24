@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:59:54 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/24 14:11:35 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:16:38 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	free_content(t_list **lnklist, t_list *char_n_used)
 {
@@ -91,17 +91,17 @@ t_list	*lstlast(t_list *lst)
 	return (lst);
 }
 
-void	lstadd_back(t_list **lst, t_list *new)
+void	lstadd_back(t_list **lst, t_list *new, int fd)
 {
 	t_list	*last;
 
 	if (lst == NULL || new == NULL)
 		return ;
-	if (*lst == NULL)
-		*lst = new;
+	if (lst[fd] == NULL)
+		lst[fd] = new;
 	else
 	{
-		last = lstlast(*lst);
+		last = lstlast(lst[fd]);
 		last->next = new;
 	}
 }
