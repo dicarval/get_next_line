@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/24 16:31:23 by dicarval         ###   ########.fr       */
+/*   Created: 2024/05/22 11:54:23 by dicarval          #+#    #+#             */
+/*   Updated: 2024/05/27 13:58:00 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,4 @@ char	*get_next_line(int fd)
 	close(fd3);
 	close(fd4);
 	return (0);
-}
- */
+} */
