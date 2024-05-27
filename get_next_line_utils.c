@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:59:54 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/24 14:11:35 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:35:17 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_content(t_list **lnklist, t_list *char_n_used)
 		free(tmp);
 	}
 	*lnklist = NULL;
-	if (char_n_used->buf[0])
+	if (char_n_used->buf[0] !='\0')
 		*lnklist = char_n_used;
 	else
 	{
