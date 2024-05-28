@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/28 14:59:26 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:06:01 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 	prep_next_line (&lnklist);
 	return (line);
 }
-
+/*
 int	main()
 {
 	int		fd;
@@ -121,4 +121,4 @@ int	main()
 		printf("%d->%s", lines++, line);
 		free(line);
 	}
-}
+} */
