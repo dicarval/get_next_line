@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/27 13:58:00 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:59:26 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	static t_list	*lnklist[FOPEN_MAX];
 	char			*line;
 
-	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	create_list(lnklist, fd);
 	if (lnklist[fd] == NULL)

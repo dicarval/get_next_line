@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 12:09:13 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/24 11:39:39 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:04:33 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
