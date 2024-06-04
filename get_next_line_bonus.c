@@ -6,7 +6,7 @@
 /*   By: dicarval <dicarval@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:54:23 by dicarval          #+#    #+#             */
-/*   Updated: 2024/05/28 14:59:26 by dicarval         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:53:13 by dicarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	create_list(t_list **lnklist, int fd)
 		if (node->buf == NULL)
 			return ;
 		i = read(fd, node->buf, BUFFER_SIZE);
-		if (i == 0)
+		if (i <= 0)
 		{
 			free(node->buf);
 			free(node);
