@@ -8,8 +8,6 @@
 - [Learning Outcomes](#learning-outcomes-)
 - [Bonus Features](#bonus-features-)
 - [Edge Cases](#edge-cases-)
-- [Conclusion](#conclusion-)
-- [Personal Note](#personal-note-️)
 
 ## Introduction 📘
 
